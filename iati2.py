@@ -1,7 +1,7 @@
 from datetime import datetime
 timestamp=datetime.now().replace(microsecond=0).isoformat()
 
-f=open("mcc_q4_2012.txt", 'rU')
+f=open("data/finance.txt", 'rU')
 
 mcc_id="US-MCC-xxxxxxxxx"
 
