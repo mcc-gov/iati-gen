@@ -1,9 +1,12 @@
 from datetime import datetime
 timestamp=datetime.now().replace(microsecond=0).isoformat()
 
-f=open("data/finance.txt", 'rU')
+f=open("data/finance.csv", 'rU')
 
-mcc_id="US-MCC-xxxxxxxxx"
+fo=open("output/mcc-activities.xml", 'w')
+
+mcc_id="US-18" # which one is actual ID?
+mcc_id="US-USG-MCC-18"
 
 def fiscal_date(date):
 	#translates "Fiscal Year, Fiscal Quarter" into ISO date for the start date of the quarter
@@ -63,6 +66,18 @@ transaction_t="""
 			<value value-date="%s">%s</value>
 		</transaction>"""
 
+
+location_t="""
+<location percentage=”">*
+    <location-type code=”"/>
+    <name xml:lang=”[Language Code]“></name>
+    <description></description>
+    <administrative country=”" adm1=”" adm2=”"></administrative>
+    <coordinates latitude=”" longitude=”" precision=”"/>
+    <gazetteer-entry gazetteer-ref=”"></gazetteer-entry>
+</location>
+"""
+
 fund=""
 region=""
 country_id=""
@@ -80,68 +95,52 @@ transaction=[]
 
 fy={}
 
-print header_t % (timestamp)
+fo.write(header_t % (timestamp))
+
+#Region,Fund,CountryID,Country,ProjectID,Project,ActivityID,Activity,DAC CODE,DACName,FY,FQ,Disbursement,Obligation
+# header for finance.csv
 
 for i, line in enumerate(f):
-	line=line.rstrip('\n').split("	")
+	line=line.rstrip('\n').split(",")
+	print line
 	#line=line.split("	")
-	if i==3:
-		#headers for years
-		year=line
+	if i==0:
 		continue
-	if i==4:
-		#headers for quarters
-		quarter=line
-		continue
-	if i==5:
-		#headers for disbursements/obligations
-		transaction=line
-		
-		y=""
-		q=""
-		tr=""
-		for j, el in enumerate(transaction):
-			if j>9:
+	if i>0:
+		'''
 				if quarter[j]!='Total' and year[j]!='Grand Total':
 					if len(year[j])>0: y=year[j].strip()
 					q=quarter[j].strip()
 					tr=transaction[j].strip()
 					#print (y, q, tr)
 					fy[j]={"fy":y,"quarter":q, "transaction":tr}
-					
-		
-		continue
-	if len(line)==1:
-		continue
-	#print len(line.split("	"))	
-	#print i, line.split("	")
-	#print i, len(line), line
-	if line[1]=='Total' or line[2]=='Total' or line[3]=='Total' or line[0]=='Total':
-		continue
-
-	if i>6:
+		'''		
 	
-		if len(line[0])>0: fund=line[0]
-		if len(line[1])>0: region=line[1]
-		if len(line[2])>0: country_id=line[2]
-		if len(line[3])>0: country=line[3]
-		if len(line[4])>0: project_id=line[4]
-		if len(line[5])>0: project=line[5]
-		if len(line[6])>0: activity_id=line[6]
-		if len(line[7])>0: activity=line[7]
-		if len(line[8])>0: dac_code=line[8]
-		if len(line[9])>0: dac_name=line[9]
+		region=line[0].strip()
+		fund=line[1].strip()
+		country_id=line[2].strip()
+		country=line[3].strip()
+		project_id=line[4].strip()
+		project=line[5].strip()
+		activity_id=line[6].strip()
+		activity=line[7].strip()
+		dac_code=line[8].strip()
+		dac_name=line[9].strip()
+		year=line[10].strip()
+		quarter=line[11].strip()
+		disbursement=line[12].strip()
+		obligation=line[13].strip()
 	
 		#print (fund,region,country_id,country,project_id,project,activity_id,activity,dac_code,dac_name)
 		#print ""
 
 		org_id="Millennium Challenge Account "+country+" MCA-"+country_id
-		org_iati_id=country_id+"-MCA-xxxxxxxxx"
+		org_iati_id=country_id+"-MCA"
 		
 		activity_start=""
 		activity_end=""
 		
-		print activity_start_t % (mcc_id, org_id, org_iati_id, project, dac_code, dac_name, country_id, country, activity_start, activity_start, activity_end, activity_end, mcc_id)
+		fo.write(activity_start_t % (mcc_id, org_id, org_iati_id, project, dac_code, dac_name, country_id, country, activity_start, activity_start, activity_end, activity_end, mcc_id))
 
 		for j, el in enumerate(line):
 			if j>9:
@@ -163,6 +162,8 @@ for i, line in enumerate(f):
 					if len(value)>0:
 						print transaction_t % (iso_date, t_date, t_code, t_type, value_date, value)
 
-		print activity_end_t 
+		fo.write(activity_end_t)
 
-print footer_t
+fo.write(footer_t)
+
+fo.close()
