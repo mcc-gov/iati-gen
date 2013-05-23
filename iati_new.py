@@ -47,7 +47,7 @@ csvreader = csv.reader(f, delimiter=',', quotechar='"')
 for i, row in enumerate(csvreader):
 	#Organizational Unit,Compact Code,Original Compact Amount,Current Compact Amount,Compact Signing,Entry into Force,Compact Closure,Notes
 	if i!=0:
-		compact, country, code, eif, closure=row[0], row[1], row[2], row[6], row[7]
+		compact, country, code, eif, closure=row[0], row[1], row[2], row[9], row[10]
 		compacts[code]={"compact":compact, "eif":eif, "closure":closure, "country":country}
 
 f.close()
@@ -70,7 +70,9 @@ f.close()
 
 import codecs
 
-f = codecs.open("data/finance.csv", 'r', encoding='latin1')
+f = codecs.open("data/finance.csv", 'rU')
+csvreader = csv.reader(f, delimiter=',', quotechar='"')
+
 
 mcc_id="US-18" # which one is actual ID?
 mcc_id="US-USG-MCC-18"
@@ -105,26 +107,25 @@ def fiscal_date(date):
 
 fin={}
 
-for i, line in enumerate(f):
-	line=line.rstrip('\n').split(",")
+for i, row in enumerate(csvreader):
 	if i==0:
 		continue
 	if i>0:
 
-		region=line[0].strip()
-		fund=line[1].strip()
-		country_id=line[2].strip()
-		country=line[3].strip()
-		project_id=line[4].strip()
-		project=line[5].strip()
-		activity_id=line[6].strip()
-		activity=line[7].strip()
-		dac_code=line[8].strip()
-		dac_name=line[9].strip()
-		fy=line[10].strip()
-		fq=line[11].strip()
-		disbursement=line[12].strip()
-		obligation=line[13].strip()
+		region=row[0].strip()
+		fund=row[1].strip()
+		country_id=row[2].strip()
+		country=row[3].strip()
+		project_id=row[4].strip()
+		project=row[5].strip()
+		activity_id=row[6].strip()
+		activity=row[7].strip()
+		dac_code=row[8].strip()
+		dac_name=row[9].strip()
+		fy=row[10].strip()
+		fq=row[11].strip()
+		disbursement=row[12].strip()
+		obligation=row[13].strip()
 
 		if fund not in fin.keys():
 				fin[fund]={}
@@ -277,25 +278,27 @@ transaction_t=Template("""
 
 
 result_t=Template("""
-		<result>
+		<result type="" aggregation-status="">
 			<title></title>
 			<description></description>
-			<indicator>
+			<indicator measure="" ascending="">
 				<title></title>
-				<description></description>
-				<baseline>
-					<value></value>
-					<period>
-						<preiod-start></period-start>
-						<period-end></period-end>
-					</period>
+				<description type=""></description>
+				<baseline year="" value="">
+					<comment></comment>
 				</baseline>
-				<actual>
-					<value></value>
-				</actual>
-				<measure aggregation-status="" ascending="">
-					<type></type>
-				</measure>
+				<period>
+					<preiod-start iso-date=""></period-start>
+					<period-end iso-date=""></period-end>
+					<target value="">
+						<comment>
+						</comment>
+					</target>
+					<actual value="">
+						<comment>
+						</comment>
+					</actual>
+				</period>
 			</indicator>
 		</result>""")
 
@@ -368,8 +371,8 @@ for country_id in fin["Compact"]:
 			for transaction in fin["Compact"][country_id]["projects"][project_id]["activities"][activity_id]["transactions"]:
 				#print fin["Compact"][country_id]["projects"][project_id]["activities"][activity_id]["transactions"]
 				trans=transaction
-				transactions=transactions+transaction_t.substitute({"date":fiscal_date(trans["fy"]+","+trans["fq"]),"code":"C","type":"Commitment","amount":trans["obligation"]})
-				transactions=transactions+transaction_t.substitute({"date":fiscal_date(trans["fy"]+","+trans["fq"]),"code":"D","type":"Disbursement","amount":trans["disbursement"]})
+				transactions=transactions+transaction_t.substitute({"date":fiscal_date(trans["fy"]+","+trans["fq"]),"code":"C","type":"Commitment","amount":"{0:.0f}".format(round(float(trans["obligation"]),0))})
+				transactions=transactions+transaction_t.substitute({"date":fiscal_date(trans["fy"]+","+trans["fq"]),"code":"D","type":"Disbursement","amount":"{0:.0f}".format(round(float(trans["disbursement"]),0))})
 
 			params3={"orgid":orgid,
 					"implorgid":implorgid,
@@ -408,10 +411,6 @@ for country_id in fin["Compact"]:
 			"startdate":eif,
 			"enddate":closure}
 	fo.write(compact_t.substitute(params))
-
-import sys
-sys.exit(0)
-
 
 fo.write(footer_t)
 

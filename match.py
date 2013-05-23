@@ -1,52 +1,67 @@
 
 import codecs
+import json
 
-f = codecs.open("data/finance.csv", 'r', encoding='latin1')
+import csv
+
+
+f = codecs.open("data/finance.csv", 'rU')
+csvreader = csv.reader(f, delimiter=',', quotechar='"')
 
 finance={}
+performance={}
 
-for i, line in enumerate(f):
-	line=line.rstrip('\n').split(",")
+oecd_codes={}
+
+
+for i, row in enumerate(csvreader):
 	if i==0:
 		continue
 	if i>0:
-		region=line[0].strip()
-		fund=line[1].strip()
-		country_id=line[2].strip()
-		country=line[3].strip()
-		project_id=line[4].strip()
-		project=line[5].strip()
-		activity_id=line[6].strip()
-		activity=line[7].strip()
-		dac_code=line[8].strip()
-		dac_name=line[9].strip()
-		fy=line[10].strip()
-		fq=line[11].strip()
-		disbursement=line[12].strip()
-		obligation=line[13].strip()
+		region=row[0].strip()
+		fund=row[1].strip()
+		country_id=row[2].strip()
+		country=row[3].strip()
+		project_id=row[4].strip()
+		project=row[5].strip()
+		activity_id=row[6].strip()
+		activity=row[7].strip()
+		dac_code=row[8].strip()
+		dac_name=row[9].strip()
+		fy=row[10].strip()
+		fq=row[11].strip()
+		disbursement=row[12].strip()
+		obligation=row[13].strip()
 
-		if fund=='Compact':
-			#print line
-			if country not in finance.keys():
-				finance[country]={}
-				finance[country][project]=[]
-				finance[country][project].append(activity)
+		if fund not in finance.keys():
+			finance[fund]={}
 
-			else:
-				if project not in finance[country].keys():
-					finance[country][project]=[]
+		if country not in finance[fund].keys():
+			finance[fund][country]={}
 
-				if activity not in finance[country][project]:
-					finance[country][project].append(activity)			
+		if project not in finance[fund][country].keys():
+			finance[fund][country][project]=[]
+
+		if activity not in finance[fund][country][project]:
+			finance[fund][country][project].append(activity)
+
+		if dac_code not in oecd_codes.keys():
+			oecd_codes[dac_code]={"dac_name":dac_name}
 
 f.close()
 
+print json.dumps(finance, indent=4)
+
+print json.dumps(oecd_codes, indent=4)
+
+import sys
+sys.exit(0)
 
 #activities and kpis are KPIs related files to match
 
 f = codecs.open("data/activities.csv", 'r', encoding='latin1')
 
-performance={}
+
 
 for i, line in enumerate(f):
 	line=line.rstrip('\n').split(",")
@@ -107,12 +122,12 @@ print "----- finance"
 for country in finance:
 	if country in performance.keys():
 		#skip all finance projects which are not part of performance/KPIs
-		#print u"",country
+		print u"",country
 		for project in finance[country]:
-			#print u"	",project
+			print u"	",project
 			for activity in finance[country][project]:
 				#print u"		",activity
-				#print country,", ", project,", ", activity
+				print country,", ", project,", ", activity
 				pass
 
 print "----- performance"
