@@ -1,0 +1,84 @@
+
+<iati-organisation version="1.01" last-updated-datetime="2013-05-07T10:28:48" xml:lang="en" default-currency="USD">
+  <iati-identifier>US-18</iati-identifier>
+  <ir:registry-record xmlns:ir="http://iatiregistry.org/ns/record#" xml:lang="en" file-id="US-MCC-1" 
+	source-url="http://data.mcc.gov/raw/iati/organisation.xml" publisher-id="US-MCC-1" 
+	publisher-role="Funding" contact-email="opendata@mcc.gov" donor-id="US-MCC-1" donor-type="10" 
+	donor-country="US" title="MCC Organisation File" activity-period="All Periods" 
+	last-updated-datetime="2013-05-07T10:28:48" 
+	generated-datetime="2013-05-07T10:28:48" verification-status="1" format="xml" license="IATI" />
+  <name>Millennium Challenge Corporation</name>
+<document-link url="url" format="format">
+  <title>title</title>
+  <category code="code">category</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/2012-001-0966-02-MCC_2011_annual_report.pdf" format="application/pdf">
+  <title>2011 Annual Report</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/report-2011001049801-2010annual.pdf" format="application/pdf">
+  <title>2010 Annual Report</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/report-2010001002007-annual-web.pdf" format="application/pdf">
+  <title>2009 Annual Report</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/mcc-2008-annualreport.pdf" format="application/pdf">
+  <title>2008 Annual Report</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/mcc-2007-annualreport.pdf" format="application/pdf">
+  <title>2007 Annual Report</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/mcc-annualreport-2006.pdf" format="application/pdf">
+  <title>2006 Annual Report</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/report-fy2011-afr.pdf" format="application/pdf">
+  <title>"Agency Financial Report, Fiscal Year 2011"</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/report-fy2010-afr.pdf" format="application/pdf">
+  <title>"Agency Financial Report, Fiscal Year 2010"</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/report-fy2009-afr.pdf" format="application/pdf">
+  <title>"Agency Financial Report, Fiscal Year 2009"</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/mcc-2008-par.pdf" format="application/pdf">
+  <title>"Performance Accountability Report, Fiscal Year 2008"</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/report-fy2007-par.pdf" format="application/pdf">
+  <title>"Performance Accountability Report, Fiscal Year 2007"</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/report-fy2006a-par.pdf" format="application/pdf">
+  <title>"Performance Accountability Report, Fiscal Year 2006"</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/report-fy2005-par.pdf" format="application/pdf">
+  <title>"Performance Accountability Report, Fiscal Year 2005"</title>
+  <category code="B01">Annual Report</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/mcc-021209-workingpaper-ownership.pdf" format="application/pdf">
+  <title>MCC's Approach to Country Ownership</title>
+  <category code="B02">Strategy Paper</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/mcc-112008-paper-results.pdf" format="application/pdf">
+  <title>Aid Effectiveness: Putting Results and the Forefront</title>
+  <category code="B02">Strategy Paper</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/mcc-112007-paper-democracy.pdf" format="application/pdf">
+  <title>Millennium Challenge Corporation and the Long Term Goal of Deepening Democracy</title>
+  <category code="B02">Strategy Paper</category>
+</document-link>
+<document-link url="http://www.mcc.gov/documents/reports/mcc-workingpaper-corruption.pdf" format="application/pdf">
+  <title>MCC's Role in the Fight against Corruption</title>
+  <category code="B02">Strategy Paper</category>
+</document-link>
+
+</iati-organisation>
