@@ -1,12 +1,12 @@
 
-<iati-organisation version="1.01" last-updated-datetime="2013-05-07T10:28:48" xml:lang="en" default-currency="USD">
-  <iati-identifier>US-18</iati-identifier>
+<iati-organisation version="1.01" last-updated-datetime="2013-06-11T09:52:59" xml:lang="en" default-currency="USD">
+  <iati-identifier>US-MCC-1</iati-identifier>
   <ir:registry-record xmlns:ir="http://iatiregistry.org/ns/record#" xml:lang="en" file-id="US-MCC-1" 
 	source-url="http://data.mcc.gov/raw/iati/organisation.xml" publisher-id="US-MCC-1" 
 	publisher-role="Funding" contact-email="opendata@mcc.gov" donor-id="US-MCC-1" donor-type="10" 
 	donor-country="US" title="MCC Organisation File" activity-period="All Periods" 
-	last-updated-datetime="2013-05-07T10:28:48" 
-	generated-datetime="2013-05-07T10:28:48" verification-status="1" format="xml" license="IATI" />
+	last-updated-datetime="2013-06-11T09:52:59" 
+	generated-datetime="2013-06-11T09:52:59" verification-status="1" format="xml" license="IATI" />
   <name>Millennium Challenge Corporation</name>
 <document-link url="url" format="format">
   <title>title</title>
